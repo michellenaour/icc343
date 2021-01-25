@@ -1,0 +1,53 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Taller 1 P2</title>
+	<script>
+		function cambiarContenido(idBoton){
+			celda = document.getElementById(idBoton);
+			if(celda.innerHTML=='[X]')
+				celda.innerHTML='[O]';
+			else
+				celda.innerHTML='[X]';
+		}
+	</script>
+</head>
+<body>
+	<h4>Juego de Gato</h4>
+	<table border="2px">
+	<tr>
+		<td>
+			<button id='b1' type="button" onclick="cambiarContenido('b1')">[ ]</button>
+		</td>
+		<td>
+			<button id='b2' type="button" onclick="cambiarContenido('b2')">[ ]</button>
+		</td>
+		<td>
+			<button id='b3' type="button" onclick="cambiarContenido('b3')">[ ]</button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button id='b4' type="button" onclick="cambiarContenido('b4')">[ ]</button>
+		</td>
+		<td>
+			<button id='b5' type="button" onclick="cambiarContenido('b5')">[ ]</button>
+		</td>
+		<td>
+			<button id='b6' type="button" onclick="cambiarContenido('b6')">[ ]</button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button id='b7' type="button" onclick="cambiarContenido('b7')">[ ]</button>
+		</td>
+		<td>
+			<button id='b8' type="button" onclick="cambiarContenido('b8')">[ ]</button>
+		</td>
+		<td>
+			<button id='b9' type="button" onclick="cambiarContenido('b9')">[ ]</button>
+		</td>
+	</tr>
+	</table>
+</body>
+</html>

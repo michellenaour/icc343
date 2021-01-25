@@ -1,0 +1,35 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Taller 2</title>
+	<script type="text/javascript" src="./class.AmbienteConway.js"></script>
+	<script>
+		function proximoPaso(){
+			x.proximoTurno();
+			document.getElementById("grilla").innerHTML="";
+			x.inyectaAmbiente("grilla");
+		}
+		var ciclos = 10;
+		function proSigue(milisecs){
+			document.getElementById("sgt").disabled=true;
+			if(ciclos>0){
+				proximoPaso();
+				setTimeout(proSigue,milisecs,milisecs);
+			}
+		}
+	</script>
+</head>
+<body>
+	<link rel="stylesheet" type="text/css" href="./conway.css">
+	<div id="grilla"></div>
+	<script>
+		var x= new AmbienteConway(30,30);
+		x.agregaPatron(6,6,"pentaDecatlon");
+		x.agregaPatron(15,15,"octagon");
+		x.agregaPatron(2,20,"figureEight");
+		x.inyectaAmbiente("grilla");
+	</script>
+	<button id="sgt" onclick="proximoPaso()">Siguiente</button>
+	<button id="Avance" onclick="proSigue(1000)">Avance Automático</button>
+</body>
+</html>

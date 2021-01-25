@@ -1,0 +1,171 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<head>
+	<title>Ejemplo Inyección SVG usando DOM</title>
+	<script >
+		class AranaSVG{
+			constructor(dato){
+				this.svg = document.createElement("SVG");
+				this.cartesian=dato;
+				this.alto=400;
+				this.ancho=this.alto*1.5;
+				this.cartesian.centro={x:0,y:0};
+				this.svg.centro=this.a_svg(this.cartesian.centro);
+				this.svg.extremos=[];
+				this.svg.puntos=[];
+			}
+			a_svg({x:x_,y:y_}){
+				var x2,y2;
+				x2=(this.alto/2)*(1+x_*0.009);
+				y2=(this.alto/2)*(1+y_*0.009);
+				return {x:x2,y:y2};
+			}
+			muestra(id){
+				var base = document.createElement("div");
+				this.svg.setAttribute("width",this.ancho);
+				this.svg.setAttribute("height",this.alto);
+				this.svg.setAttribute("style","border:1px solid black");
+				var l = this.creaLinea("400","400","400","0");
+				this.svg.appendChild(l);
+				var c = this.crearPunto("200","200","3","grey");
+				this.svg.appendChild(c);
+				var datos=this.cartesian.datos;
+				var num = datos.length;
+				var colores = this.cartesian.colores;
+				var angulo=45;
+				var todosLosPuntos="";
+				for (var j=0; j<num; j++){
+					var coo=this.a_svg(this.calcularPosCirculos(angulo,datos[j]));
+					this.svg.puntos.push({x:coo.x,y:coo.y});
+					coo=this.a_svg(this.calcularPosCirculos(angulo,100));
+					this.svg.extremos.push({x:coo.x, y:coo.y});
+					angulo+=(360/num);
+				}
+				for (var i=0; i<num; i++){
+					var circ, punto, extrem, color, linea,etiqueta,porcent;
+					punto=this.svg.puntos[i];
+					extrem = this.svg.extremos[i];
+					color =colores[i];
+					circ=this.crearPunto(punto.x,punto.y,"3","black");
+					this.svg.appendChild(circ);
+					circ=this.crearPunto(extrem.x,extrem.y,"6",color);
+					this.svg.appendChild(circ);
+					linea=this.creaLinea(extrem.x, extrem.y,this.svg.centro.x,this.svg.centro.y);
+					this.svg.appendChild(linea);
+					porcent=datos[i]*100/this.cartesian.maximo;
+					etiqueta=this.creaEtiqueta((porcent+"%"),punto.x+3,punto.y+3);
+					this.svg.appendChild(etiqueta);
+					todosLosPuntos+=punto.x+","+punto.y+" ";
+				}
+				var p=this.crearPoligono(todosLosPuntos);
+				this.svg.appendChild(p);
+				this.inyectaEtiquetas();
+				base.appendChild(this.svg);
+				document.getElementById(id).innerHTML=base.innerHTML;
+			}
+			inyectaEtiquetas(){
+				var yEtiqueta=20;
+				var etiquetas = this.cartesian.etiquetas;
+				var colores = this.cartesian.colores;
+				var num = this.svg.puntos.length;
+				for (var i=0; i<num;i++){
+					var circ, textoEtiqueta, etiq;
+					var textoEtiqueta= etiquetas[i];
+					var color =colores[i];
+					circ=this.crearPunto("420",yEtiqueta,"6",color);
+					this.svg.appendChild(circ);
+					etiq=this.creaEtiqueta(textoEtiqueta,"430", yEtiqueta+5)
+					this.svg.appendChild(etiq);
+					yEtiqueta+=20;
+				}
+
+			}
+			crearPoligono(puntos){
+				var p = document.createElement("polygon");
+				p.setAttribute("points",puntos);
+				p.setAttribute("stroke","black");
+				p.setAttribute("fill","none");
+				return p;
+			}
+			calcularPosCirculos(angulo,lado){
+				var x2, y2, angRad;
+				angRad=(angulo*(Math.PI/180));
+				x2=lado*Math.cos(angRad);
+				y2=lado*Math.sin(angRad);
+				return {x:x2,y:y2};
+			}
+			ca
+			creaEtiqueta(txt,x,y){
+				var e = document.createElement("text");
+				e.setAttribute("x",x);
+				e.setAttribute("y",y);
+				e.setAttribute("font-size","14");
+				e.innerHTML=txt;
+				return e;
+			}
+			
+			creaLinea(x1,y1,x2,y2){
+				var l = document.createElement("line");
+				l.setAttribute("x1",x1);
+				l.setAttribute("y1",y1);
+				l.setAttribute("x2",x2);
+				l.setAttribute("y2",y2);
+				l.setAttribute("stroke","black");
+				return l;
+			}
+			crearPunto(cx_,cy_,r_,fill_){
+				var c = document.createElement("circle");
+				c.setAttribute("cx",cx_);
+				c.setAttribute("cy",cy_);
+				c.setAttribute("r",r_);
+				c.setAttribute("fill",fill_);
+				return c;
+			}
+		}
+		function datosParaArana(tx){
+			var obj = document.getElementById(tx);
+			str = obj.value.replace(/(\r\n|\n|\r|\s)/gm, "");
+			var texto= str.split(";");
+			texto.splice(-1,1);
+			var obj = {tipo:"araña"};
+			var linea = 0;
+			for(lin of texto){
+				console.log("linea "+linea+": "+lin);
+				var sep = lin.split("=");
+				if(sep.length==2){
+					var ele = sep[1].split(",");
+					obj[sep[0]] = ele;
+				}
+				else{
+					console.log("error en línea "+linea);
+				}
+				linea++;
+			}
+			var graf = new AranaSVG(obj);
+			console.log(JSON.stringify(graf.cartesian));
+			graf.muestra("grafico");
+			console.log(graf.svg);
+		}
+	</script>
+</head>
+<body>
+<h4>Ejemplo Graficación Araña</h4>
+<table>
+	<tr>
+		<td>
+			<textarea id="tx_" rows="6" cols="40">
+maximo=100;
+datos=90,30,70;
+colores=#909033,green,orange;
+etiquetas=TP-1,TP-2,TP-3;
+			</textarea>
+			<br>
+			<button onclick="datosParaArana('tx_')">Crea Gráfico</button>	
+		</td>
+		<td>
+			<div id="grafico"></div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

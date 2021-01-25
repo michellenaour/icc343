@@ -1,0 +1,43 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Tutorial HTML - JavaScript</title>
+	<link rel="stylesheet" type="text/css" href="./Michelle.css">
+	<script>
+		var col = ["#339090", "#6090AA", "#80BB40"]
+		function generaTablaColor(idDiv, listaCol){
+			var tabla,fila,celd,i;
+			tabla = document.createElement("TABLE");
+			tabla.setAttribute("class", "mi_tverde");
+			for(i=0; i<listaCol.length; i++){
+				fila = document.createElement("TR");
+				celd = document.createElement("TD");
+				celd.innerHTML=listaCol[i];
+				fila.appendChild(celd);
+				celd = document.createElement("TD");
+				celd.innerHTML='[   ]';
+				celd.style = 'background-color:'+listaCol[i];
+				fila.appendChild(celd);
+				tabla.appendChild(fila);
+			}
+			document.getElementById(idDiv).innerHTML="";
+			document.getElementById(idDiv).appendChild(tabla);
+		}
+		function agregaColor(){
+			var valor=document.getElementById("otromas").value;
+			col.push(valor);
+			generaTablaColor("aqui", col);
+		}
+	</script>
+</head>
+<body>
+	<h4>Mi Tabla</h4>
+	<div id="aqui"></div>
+	<script>
+		generaTablaColor("aqui", col);
+	</script>
+	<br>
+	Otro Color: <input type="text" id="otromas">
+	<button onclick="agregaColor()">Agrega</button>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Taller 1 P3</title>
+	<script>
+		var IdBotones=['b1','b2','b3','b4','b5','b6','b7','b8','b9'];
+		var JugadasGanadoras=[['b1','b2','b3'], ['b4','b5','b6'],['b7','b8','b9'],['b1','b4','b7'],['b2','b5','b8'],['b3','b6','b9'],['b1','b5','b9'],['b3','b5','b7']];	
+		var jugador='[X]';
+		function cambiarContenido(idBoton){
+			celda = document.getElementById(idBoton);
+			if(jugador=='[X]'){
+				celda.innerHTML='[X]';
+				elegirGanador();
+				jugador='[O]';
+			}else{
+				celda.innerHTML='[O]';
+				elegirGanador();
+				jugador='[X]';
+			}
+			celda.disabled=true;
+			elegirGanador();
+		}
+		function elegirGanador(){
+			for(i=0;i<8;i++){
+				suma=0;
+				for(j=0;j<3;j++){
+					if(jugador==document.getElementById(JugadasGanadoras[i][j]).innerHTML)
+						suma++;
+				}
+				if (suma==3){
+					document.getElementById("resultado").innerHTML=("El ganador es: "+jugador);
+					pintaFondos(JugadasGanadoras[i],"#49914a");
+					for (k=0;k<9;k++){
+						document.getElementById(IdBotones[k]).disabled=true;
+					}
+					i=8;
+				}
+			}
+		}
+		function pintaFondos(botones,color){
+			for (i=0;i<3;i++)
+				document.getElementById(botones[i]).style.background=color;
+		}
+	</script>
+</head>
+<body>
+	<h4>Juego de Gato</h4>
+	<table border="2px">
+	<tr>
+		<td>
+			<button id='b1' type="button" onclick="cambiarContenido('b1')">[ ]</button>
+		</td>
+		<td>
+			<button id='b2' type="button" onclick="cambiarContenido('b2')">[ ]</button>
+		</td>
+		<td>
+			<button id='b3' type="button" onclick="cambiarContenido('b3')">[ ]</button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button id='b4' type="button" onclick="cambiarContenido('b4')">[ ]</button>
+		</td>
+		<td>
+			<button id='b5' type="button" onclick="cambiarContenido('b5')">[ ]</button>
+		</td>
+		<td>
+			<button id='b6' type="button" onclick="cambiarContenido('b6')">[ ]</button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button id='b7' type="button" onclick="cambiarContenido('b7')">[ ]</button>
+		</td>
+		<td>
+			<button id='b8' type="button" onclick="cambiarContenido('b8')">[ ]</button>
+		</td>
+		<td>
+			<button id='b9' type="button" onclick="cambiarContenido('b9')">[ ]</button>
+		</td>
+	</tr>
+	</table>
+	<div id="resultado"></div>
+</body>
+</html>

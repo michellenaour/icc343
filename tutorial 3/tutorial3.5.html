@@ -1,0 +1,46 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<head>
+	<title>Ejemplo inyecion SVG usando DOM</title>
+	<script>
+		function inyectaPaleta(idDiv){
+			var base = document.createElement("div");
+			var svg = document.createElement("SVG");
+			var w=400;
+			svg.setAttribute("width", w);
+			svg.setAttribute("height", w);
+			var x=20, size="200";
+			var cc=10;
+			var col,c;
+			for (var i=0; i<10; i++, x+=10, size-=10, cc+=5){
+				c=creaCuadrado(x,x,size,size,cc+100,cc+100,cc);
+				svg.appendChild(c);
+				c=creaCuadrado(x+w/2,x,size,size,cc+100,cc,cc);
+				svg.appendChild(c);
+				c=creaCuadrado(x,x+w/2,size,size,cc,cc+100,cc);
+				svg.appendChild(c);
+				c=creaCuadrado(x+w/2,x+w/2,size,size,cc,cc,cc+100);
+				svg.appendChild(c);
+			}
+			base.appendChild(svg);
+			document.getElementById(idDiv).innerHTML=base.innerHTML;
+		}
+		function creaCuadrado(x,y,ancho,alto,colr,colg,colb){
+			var c=document.createElement("rect");
+			c.setAttribute("x",x);
+			c.setAttribute("y",y);
+			c.setAttribute("width", ancho);
+			c.setAttribute("height",alto);
+			c.setAttribute("fill","rgb("+colr+","+colg+","+colb+")");
+			return c;
+		}
+	</script>
+</head>
+<body>
+	<h4>Ejemplo inyeccion SVG usando Dom</h4>
+	<div id="destino"></div>
+	<script>
+		inyectaPaleta("destino");
+	</script>
+</body>
+</html>

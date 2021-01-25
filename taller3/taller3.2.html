@@ -1,0 +1,139 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<head>
+	<title>Ejemplo Inyección SVG usando DOM</title>
+	<script >
+		class AranaSVG{
+			constructor(dato){
+				this.svg = document.createElement("SVG");
+				this.cartesian=dato;
+				this.alto=400;
+				this.ancho=this.alto*1.5;
+				this.cartesian.centro={x:0,y:0};
+				this.svg.centro=this.a_svg(this.cartesian.centro);
+			}
+			a_svg({x:x_,y:y_}){
+				var x2,y2;
+				x2=(this.alto/2)*(1+x_*0.009);
+				y2=(this.alto/2)*(1+y_*0.009);
+				return {x:x2,y:y2};
+			}
+			muestra(id){
+				var base = document.createElement("div");
+				this.svg.setAttribute("width",this.ancho);
+				this.svg.setAttribute("height",this.alto);
+				this.svg.setAttribute("style","border:1px solid black");
+
+				var c,puntos,colores,num, l, posE, e,etiquetas;
+
+				l = this.creaLinea("400","400","400","0");
+				this.svg.appendChild(l);
+				c = this.crearPunto("200","200","3","grey");
+				this.svg.appendChild(c);
+
+				puntos=this.cartesian.datos;
+				colores = this.cartesian.colores;
+				etiquetas = this.cartesian.etiquetas;
+				num = puntos.length;
+				
+				posE=20;
+				for(var i=0;i<num;i++){
+					var punt,col,coo;
+					punt=puntos[i];
+					col=colores[i];
+					coo = this.a_svg({x:punt,y:punt});
+					c = this.crearPunto(coo.x,coo.y,"4",col);
+					this.svg.appendChild(c);
+					c=this.crearPunto("420",posE,"4",col);
+					e = this.creaEtiqueta(etiquetas[i],"430",posE+2);
+	
+					this.svg.appendChild(c);
+					this.svg.appendChild(e);
+					posE+=20;
+				}
+				base.appendChild(this.svg);
+				document.getElementById(id).innerHTML=base.innerHTML;
+			}
+			creaEtiqueta(txt,x,y){
+				var e = document.createElement("text");
+				e.setAttribute("x",x);
+				e.setAttribute("y",y);
+				e.setAttribute("font-size","10");
+				e.innerHTML=txt;
+				return e;
+			}
+			creaCuadrado(x,y,wid,hig,color,stroke){
+				var r = document.createElement("rect");
+				r.setAttribute("x",x);
+				r.setAttribute("y",y);
+				r.setAttribute("width",wid);
+				r.setAttribute("height",hig);
+				r.setAttribute("fill",col);
+				r.setAttribute("stroke",stroke);
+				return r;
+			}
+			creaLinea(x1,y1,x2,y2){
+				var l = document.createElement("line");
+				l.setAttribute("x1",x1);
+				l.setAttribute("y1",y1);
+				l.setAttribute("x2",x2);
+				l.setAttribute("y2",y2);
+				l.setAttribute("stroke","black");
+				return l;
+			}
+			crearPunto(cx_,cy_,r_,fill_){
+				var c = document.createElement("circle");
+				c.setAttribute("cx",cx_);
+				c.setAttribute("cy",cy_);
+				c.setAttribute("r",r_);
+				c.setAttribute("fill",fill_);
+				return c;
+			}
+		}
+		function datosParaArana(tx){
+			var obj = document.getElementById(tx);
+			str = obj.value.replace(/(\r\n|\n|\r|\s)/gm, "");
+			var texto= str.split(";");
+			texto.splice(-1,1);
+			var obj = {tipo:"araña"};
+			var linea = 0;
+			for(lin of texto){
+				console.log("linea "+linea+": "+lin);
+				var sep = lin.split("=");
+				if(sep.length==2){
+					var ele = sep[1].split(",");
+					obj[sep[0]] = ele;
+				}
+				else{
+					console.log("error en línea "+linea);
+				}
+				linea++;
+			}
+			var graf = new AranaSVG(obj);
+			console.log(JSON.stringify(graf.cartesian));
+			graf.muestra("grafico");
+			console.log(graf.svg);
+		}
+	</script>
+</head>
+<body>
+<h4>Ejemplo Graficación Araña</h4>
+<table>
+	<tr>
+		<td>
+			<textarea id="tx_" rows="6" cols="40">
+maximo=100;
+datos=90,30,70;
+colores=#909033,green,orange;
+etiquetas=TP-1,TP-2,TP-3;
+			</textarea>
+			<br>
+			<button onclick="datosParaArana('tx_')">Crea Gráfico</button>	
+		</td>
+		<td>
+			<div id="grafico"></div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

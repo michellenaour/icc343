@@ -1,0 +1,291 @@
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<link rel="stylesheet" type="text/css" href="http://www.x3dom.org/x3dom/release/x3dom.css">
+</link>
+<script type="text/javascript" src= "http://www.x3dom.org/x3dom/release/x3dom.js">
+</script>
+</head>
+<body>
+<div id='x3dSection'>
+	<x3d width="1000" heigth ="700">
+		<scene>
+			<Viewpoint position='0,0,40'></Viewpoint>
+			<PointLight ambientIntensity='0.8' attenuation='0,0,0' color='1,1,0.8' global='false' intensity='1' location='0,12,0' on='true' radius='50' shadowFilterSize='0' shadowIntensity='0.8' shadowMapSize='1024' shadowOffset='0.1' zFar='-1' zNear='-1'></PointLight>
+
+			 <shape>
+				 <appearance>
+				 <material> </material>
+				<ImageTexture url='https://i0.wp.com/vinotecalacristaleria.es/wp-content/uploads/2014/03/madera.png'/>
+				 </appearance>
+				 <box solid='true' size='30 0.2 40'></box>
+			 </shape>
+
+			<transform translation = "15 12 0">
+				<shape def="pared1">
+					<appearance>
+					<material diffuseColor="#e7dae8">
+					</material>
+					</appearance>
+					<box size='0.2 24 40'> </box>
+				</shape>
+			</transform>
+
+			<transform translation = "0 12 20">
+				<shape def="pared2">
+					<appearance>
+					<material diffuseColor="#e7dae8">
+					</material>
+					</appearance>
+					<box size='30 24 0.2'> </box>
+				</shape>
+			</transform>
+
+			<transform translation = "0 12 -20" >
+				<shape use="pared2">
+			</transform>
+
+
+			<transform translation = "-15 12 15" scale="1 1 0.25">
+				<shape use="pared1">
+			</transform>
+
+			<transform translation = "-15 12 -15" scale="1 1 0.25">
+				<shape use="pared1">
+			</transform>
+
+			<transform translation = "-15 3 0" scale="1 0.25 1">
+				<shape use="pared1">
+			</transform>
+
+			<transform translation = "-15 21 0" scale="1 0.25 1">
+				<shape use="pared1">
+			</transform>
+
+
+			<transform translation = "-2 0.2 -2" >
+				<Group>
+					<shape>
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<Cylinder height="0.2" radius="0.6"> </Cylider>
+					</shape>
+
+					<transform translation = "0 1.25 0">
+						 <shape def="palo">
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<Cylinder height="2.5" radius="0.09"> </Cylider>
+						</shape>
+					</transform>
+
+					<transform translation = "-1 3.2 0"  rotation="0 0 1 1">
+						 <shape use="palo"/>
+					</transform>
+
+					<transform translation = "0 2.54 0" >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<box size='0.3,0.3,0.3'></box>
+						</shape>
+					</transform>
+
+					<transform translation = "-2 3.8 0"  rotation="0 0 1 -1">
+						 <shape>
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<cone bottomRadius='0.4' height='1'></cone>
+						</shape>
+					</transform>
+
+					<transform translation = "-2.4 3.55 0"  >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#fac228">
+							</material>
+							</appearance>
+							<sphere radius='0.25'></sphere>
+						</shape>
+					</transform>
+				</Group>
+			</transform>
+			<transform translation = "-5 0.2 -3" rotation=" 0 0.5 0 1.5">
+				<Group>
+					<shape>
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<Cylinder height="0.2" radius="0.6"> </Cylider>
+					</shape>
+
+					<transform translation = "0 1.25 0">
+						 <shape def="palo">
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<Cylinder height="2.5" radius="0.09"> </Cylider>
+						</shape>
+					</transform>
+
+					<transform translation = "-1 3.2 0"  rotation="0 0 1 1">
+						 <shape use="palo"/>
+					</transform>
+
+					<transform translation = "0 2.54 0" >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<box size='0.3,0.3,0.3'></box>
+						</shape>
+					</transform>
+
+					<transform translation = "-2 3.8 0"  rotation="0 0 1 -1">
+						 <shape>
+							<appearance>
+							<material diffuseColor="#a8a7a3">
+							</material>
+							</appearance>
+							<cone bottomRadius='0.4' height='1'></cone>
+						</shape>
+					</transform>
+
+					<transform translation = "-2.4 3.55 0"  >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#fac228">
+							</material>
+							</appearance>
+							<sphere radius='0.25'></sphere>
+						</shape>
+					</transform>
+				</Group>
+			</transform>
+			<transform translation = "-4 0.2 4" rotation="0 -1 0 2">
+				<Group>
+					<shape>
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<Cylinder height="0.2" radius="0.6"> </Cylider>
+					</shape>
+
+					<transform translation = "0 1.25 0">
+						 <shape def="palo">
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<Cylinder height="2.5" radius="0.09"> </Cylider>
+						</shape>
+					</transform>
+
+					<transform translation = "-1 3.2 0"  rotation="0 0 1 1">
+						 <shape use="palo"/>
+					</transform>
+
+					<transform translation = "0 2.54 0" >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<box size='0.3,0.3,0.3'></box>
+						</shape>
+					</transform>
+
+					<transform translation = "-2 3.8 0"  rotation="0 0 1 -1">
+						 <shape>
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<cone bottomRadius='0.4' height='1'></cone>
+						</shape>
+					</transform>
+
+					<transform translation = "-2.4 3.55 0"  >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#fac228">
+							</material>
+							</appearance>
+							<sphere radius='0.25'></sphere>
+						</shape>
+					</transform>
+				</Group>
+			</transform>
+			<transform translation = "4 0.2 -4" rotation="0 0.5 0 0.5">
+				<Group>
+					<shape>
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<Cylinder height="0.2" radius="0.6"> </Cylider>
+					</shape>
+
+					<transform translation = "0 1.25 0">
+						 <shape def="palo">
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<Cylinder height="2.5" radius="0.09"> </Cylider>
+						</shape>
+					</transform>
+
+					<transform translation = "-1 3.2 0"  rotation="0 0 1 1">
+						 <shape use="palo"/>
+					</transform>
+
+					<transform translation = "0 2.54 0" >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<box size='0.3,0.3,0.3'></box>
+						</shape>
+					</transform>
+
+					<transform translation = "-2 3.8 0"  rotation="0 0 1 -1">
+						 <shape>
+							<appearance>
+							<material diffuseColor="#51a5b0">
+							</material>
+							</appearance>
+							<cone bottomRadius='0.4' height='1'></cone>
+						</shape>
+					</transform>
+
+					<transform translation = "-2.4 3.55 0"  >
+						 <shape>
+							<appearance>
+							<material diffuseColor="#fac228">
+							</material>
+							</appearance>
+							<sphere radius='0.25'></sphere>
+						</shape>
+					</transform>
+				</Group>
+			</transform>
+			
+		</scene>
+	</x3d>
+</div>
+</body>
+</html>

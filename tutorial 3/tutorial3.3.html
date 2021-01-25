@@ -1,0 +1,35 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<head>
+	<title>Ejemplo SVG</title>
+	<script>
+		function agranda_circulo(id,delta){
+			var cir = document.getElementById(id);
+			var dim= parseInt(cir.getAttribute("r"));
+			cir.setAttribute("r",delta+dim);
+		}
+		function cambia_color(id){
+			var c=['orange','green','blue','purple'];
+			var cir = document.getElementById(id);
+			var col = cir.getAttribute("fill");
+			var idx = c.indexOf(col);
+			if(++idx>3)idx=0;
+			cir.setAttribute("fill", c[idx]);
+		}
+	</script>
+</head>
+<body>
+	<h4>Ejemplo gestión de eventos sobre SVG</h4>
+	<svg width="200" height="160">
+		<circle id="c01" cx="50" cy="50" r="15" fill="red" 
+				onclick="agranda_circulo('c01',-4)"
+				onmouseover="cambia_color('c01')"/>
+		<circle id="c02" cx="150" cy="100" r="20" fill="blue" 
+				onclick="agranda_circulo('c02',-4)"
+				onmouseover="cambia_color('c02')" />
+	</svg>
+	<br>
+	<button onclick="agranda_circulo('c01',4)">Más rojo</button>
+	<button onclick="agranda_circulo('c02',7)">Más azul</button>
+</body>
+</html>
